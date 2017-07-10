@@ -1,3 +1,6 @@
+/*embed is a command-line utility that converts a (binary) asset into a package/ variable file to be compiled in with a Go program.
+It is suitable to be invoked from go-generate.
+*/
 package main
 
 import (

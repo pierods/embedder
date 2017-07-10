@@ -1,3 +1,6 @@
+/*
+Package embedder contains a single function to embed (binary) assets in a program
+*/
 package embedder
 
 import (
@@ -5,6 +8,11 @@ import (
 	"strconv"
 )
 
+/*
+Embed takes in an output variable name and a []byte and returns this string:
+var OuputVar []byte = []byte{...}
+The content of assetBytes is converted to its string representation.
+*/
 func Embed(outputVar string, assetBytes []byte) ([]byte, error) {
 
 	var buffer bytes.Buffer
