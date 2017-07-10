@@ -32,5 +32,6 @@ func TestEmbedder(t *testing.T) {
 	if string(hW2) != "hello, world" {
 		t.Fatal("Should be able to embed an asset")
 	}
+	t.Log("Succes - embedder")
 
 }
