@@ -13,6 +13,7 @@ var (
 	outputPackage *string = flag.String("package", "", "package containing the embedded asset")
 	outputVar     *string = flag.String("var", "", "name of the variable containing the embedded asset")
 	asset         *string = flag.String("asset", "", "path of the asset to be embedded")
+	outFile       *string = flag.String("o", "", "path of output file")
 )
 
 func main() {
@@ -37,9 +38,23 @@ func main() {
 		errFunc(err.Error())
 	}
 
-	embedded, err := embedder.Embed(*outputPackage, *outputVar, assetBytes)
+	embedded, err := embedder.Embed(*outputVar, assetBytes)
 	if err != nil {
 		errFunc(err.Error())
+	}
+
+	embedded = append([]byte("package "+*outputPackage+"\n"), embedded...)
+	if err != nil {
+		os.Exit(1)
+	}
+
+	if *outFile != "" {
+		err = ioutil.WriteFile(*outFile, embedded, os.ModePerm)
+		if err != nil {
+			os.Exit(1)
+			return
+		}
+		return
 	}
 	_, err = os.Stdout.Write(embedded)
 
